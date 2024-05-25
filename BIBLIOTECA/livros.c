@@ -13,125 +13,46 @@ int voltarMenu()    //funcao para voltar ao menu
     menu();  //voltar ao menu
 }
 
-int leituraCliente(char *nomedoarquivo2)    //funcao para ler o nome do cliente
-{
-
-    elementoArray = 0;  //definir o tamanho do array
-
-    arquivoLeitura2;    //abrir o arquivo
-
-    while (fgets(lerInformacoes))   //ler as informacoes
-    {
-        elementoArray++;    //incrementar o array
+int leituraLivro(char *nomedoarquivo) {
+    char livros1[50];
+    int i = 0;
+    arquivoLeitura;
+    while (fread(&livros1, sizeof(livros1), 1, arquivo)) {
+                 strcpy(livros[i].nome, livros1);
+                 i++;
+                 
     }
+    elementoArray = i;
+    arquivoFechar;
 
-    arquivoFechar;  //fechar o arquivo
-
-    for (int i = 0; i < (elementoArray); i++)       //loop para percorrer o array
-    {
-
-        sprintf(clientes[i].nome2, "%s", array[i]);  //escrever no array
-    }
-
-    return 0;   
+    return 0;
 }
 
-int leituraNome(char*nomedoarquivo) 
-{
-    arquivoLeitura;  
+int leituraGenero(char *nomedoarquivo) {
+    char genero[3];
     int i = 0;
-
-    
-    while (!feof(arquivo)) 
-    {
-        
-        if (fread(&livros[i].nome, sizeof(livros), 1, arquivo)); 
-        i++;
-            
+    arquivoLeitura;
+    while (fread(&genero, sizeof(genero), 1, arquivo)) {
+                 strcpy(livros[i].genero, genero);
+                 i++;
+                 
     }
     arquivoFechar;
-    return 0;
-}
-
-int leituraCpf(char *nomedoarquivo2)    //funcao para ler o cpf
-{
-
-    elementoArray = 0;  //definir o tamanho do array
-
-    arquivoLeitura2;    //abrir o arquivo
-
-    while (fgets(lerInformacoes))   //ler as informacoes
-    {
-        elementoArray++;        //incrementar o array
-    }
-
-    arquivoFechar;          //fechar o arquivo
-
-    for (int i = 0; i < (elementoArray); i++)   //loop para percorrer o array
-    {
-
-        sprintf(clientes[i].cpf, "%s", array[i]);   //escrever no array
-    }
-
-    return 0;
-}
-int leituraGenero(char *nomedoarquivo)      //funcao para ler o genero
-{
-
-    elementoArray = 0;      //definir o tamanho do array
-
-    arquivoLeitura;     //abrir o arquivo
-
-    while (feof(arquivo))           //ler as informacoes
-    {
-        elementoArray++;    //incrementar o array
-    }
-
-    arquivoFechar;  //fechar o arquivo
-
-    for (int i = 0; i < (elementoArray); i++)   //loop para percorrer o array
-    {
-
-        fread(&livros[i].genero, sizeof(livros[i].genero), 1, arquivo);  //escrever no array
-    }
 
     return 0;
 }
 
-int leituraEmprestimo(char *nomedoarquivo3)     //funcao para ler o emprestimo
+int cadastrarLivro(char *nomedoarquivo)     //funcao para cadastrar o livro]
+
 {
-
-    elementoArray = 0;  //definir o tamanho do array
-
-    arquivoLeitura3;    //abrir o arquivo
-
-    while (fgets(lerInformacoes))       //ler as informacoes
-    {
-        elementoArray++;    //incrementar o array
-    }
-
-    arquivoFechar;  //fechar o arquivo
-
-    for (int i = 0; i < (elementoArray); i++)   //loop para percorrer o array
-    {
-
-        sprintf(livros[i].emprestimo, "%s", array[i]);  //escrever no array
-    }
-
-    return 0;
-}
-
-int cadastrarLivro(char *nomedoarquivo)     //funcao para cadastrar o livro
-{
-    char nome[50];  //definir um tamanho para o nome
-    fgets(nome, 50, stdin); //ler o nome
+    char nomes[50];  //definir um tamanho para o nome
     printf("digite o nome do livro: "); //imprimir na tela
-    fgets(nome, 50, stdin); //ler o nome
+    fgets(nomes, 50, stdin); //ler o nome
     fflush(stdin);  //limpar o buffer
 
     arquivoEditar;  //abrir o arquivo
 
-    fwrite(&nome, sizeof(livros), 1, arquivo);   //escrever no arquivo
+    fwrite(&nomes, sizeof(nomes), 1, arquivo);   //escrever no arquivo
 
     arquivoFechar;  //fechar o arquivo
 
@@ -139,23 +60,26 @@ int cadastrarLivro(char *nomedoarquivo)     //funcao para cadastrar o livro
 }
 
 int cadastrarGenero(char *nomedoarquivo)    //funcao para cadastrar o genero]
-{
-    char genero[10];    //definir um tamanho para o genero
-    fgets(genero, 10, stdin);   //ler o genero
+{ 
+    char genero[3];
+    int num;
+    do
+    {
     printf("Selecione o genero do livro\n");    //imprimir na tela
     printf("[1] Romance     [2] Terror     [3] Contos\n");  
     printf("[4] Biografia   [5] Autoajuda  [6] True Crime\n");
     printf("[7] Ficcao      [8] Poesia     [9] Infantil\n");
     fgets(genero, 10, stdin);   //ler o genero
+    num = strtol(genero, NULL, 10);
+    } while (num<0 || num>9);
+    
+
     fflush(stdin);  //limpar o buffer
 
     arquivoEditar;  //abrir o arquivo
 
-    long posicao = ftell(arquivo);
-    fseek(arquivo, 0, SEEK_END);
-    posicao = ftell(arquivo);
 
-    fwrite(&genero, posicao, 1, arquivo);  //escrever no arquivo
+    fwrite(&genero, sizeof(genero), 1, arquivo);  //escrever no arquivo
 
     arquivoFechar;  //fechar o arquivo
 
@@ -217,6 +141,7 @@ int cadastrarCpf(char *nomedoarquivo)//funcao para cadastrar o cpf
 
     return 0;
 }
+
 int cadastrartelefone(char *nomedoarquivo)    //funcao para cadastrar o telefone
 {
     char telefone[11];  //definir um tamanho para o telefone
@@ -233,7 +158,6 @@ int cadastrartelefone(char *nomedoarquivo)    //funcao para cadastrar o telefone
     return 0;   //retornar 0
 }
 
-
 int listaClientes() //funcao para listar os clientes
 {
     printf("Clientes:\n");  //imprimir na tela
@@ -246,18 +170,18 @@ int listaClientes() //funcao para listar os clientes
     return 0;
 }
 
-int generos()   //funcao para listar os generos
+int generos()
 {
     int codigo; //definir um codigo
-    char s1[2] = "1";   //definir um tamanho para o genero
-    char s2[2] = "2";
-    char s3[2] = "3";   
-    char s4[2] = "4";
-    char s5[2] = "5";
-    char s6[2] = "6";
-    char s7[2] = "7";
-    char s8[2] = "8";
-    char s9[2] = "9";
+    char s1[2]="1";
+    char s2[2]="2";
+    char s3[2]="3";
+    char s4[2]="4";
+    char s5[2]="5";
+    char s6[2]="6";
+    char s7[2]="7";
+    char s8[2]="8";
+    char s9[2]="9";
     printf("GENEROS\n\n");  //imprimir na tela
     printf("selecione o genero do livro\n");
     printf("[1] Romance     [2] Terror     [3] Contos\n");  
@@ -267,64 +191,83 @@ int generos()   //funcao para listar os generos
     switch (codigo) //condicao para verificar o codigo
     {
     case 1: //caso o codigo seja 1
+        system("cls");
         printf("LIVROS DO GENERO ROMANCE:\n\n");        
-        printf("Codigo|| Nome do Livro\n");
-        for (int i = 0; i < elementoArray; i++)
-            if (strstr(livros[i].genero, s1) != NULL)   //condicao para verificar o genero
+        printf("Codigo|| Nome do Livro\n");  
+
+    for (int i = 0; i < elementoArray; i++)
+            if (strstr(livros[i].genero,s1) != NULL)
             {
-                printf("%d     || %s \n", i, livros[i].nome);   //imprimir na tela
+                printf("%d     || %s \n", i, livros[i].nome);
             }
-            else    //condicao para verificar o genero
+            else
             {
                 continue;
             }
 
-        break;  //quebrar
+        break;
+
     case 2: //caso o codigo seja 2
+        system("cls");
         printf("LIVROS DO GENERO TERROR:\n\n");   //imprimir na tela
-        printf("Codigo|| Nome do Livro\n"); 
-        for (int i = 0; i <= elementoArray; i++)    //loop para percorrer o array
-            if (strstr(livros[i].genero, s2) != NULL)   //condicao para verificar o genero
+        printf("Codigo|| Nome do Livro\n");   
+
+    for (int i = 0; i < elementoArray; i++)
+            if (strstr(livros[i].genero,s2) != NULL)
             {
-                printf("%d     || %s \n", i, livros[i].nome);   //imprimir na tela
+                printf("%d     || %s \n", i, livros[i].nome);
             }
-            else    //condicao para verificar o genero
+            else
             {
                 continue;
             }
+
+        break;
 
         break;      //quebrar
     case 3:
+        system("cls");
         printf("LIVROS DO GENERO CONTOS:\n\n");  //imprimir na tela
-        printf("Codigo|| Nome do Livro\n");         
-        for (int i = 0; i <= elementoArray; i++)    //loop para percorrer o array
-            if (strstr(livros[i].genero, s3) != NULL)   //condicao para verificar o genero
+        printf("Codigo|| Nome do Livro\n");          
+
+    for (int i = 0; i < elementoArray; i++)
+            if (strstr(livros[i].genero,s3) != NULL)
             {
-                printf("%d     || %s \n", i, livros[i].nome);       //imprimir na tela
+                printf("%d     || %s \n", i, livros[i].nome);
             }
-            else    //condicao para verificar o genero
+            else
             {
                 continue;
             }
+
+        break;
+    
         break;  //quebrar
     case 4:    //caso o codigo seja 4
+        system("cls");
         printf("LIVROS DO GENERO BIOGRAFIA:\n\n");  //imprimir na tela
         printf("Codigo|| Nome do Livro\n");
-        for (int i = 0; i <= elementoArray; i++)    //loop para percorrer o array
-            if (strstr(livros[i].genero, s4) != NULL)   //condicao para verificar o genero
+    
+    for (int i = 0; i < elementoArray; i++)
+            if (strstr(livros[i].genero,s4) != NULL)
             {
-                printf("%d     || %s \n", i, livros[i].nome);   //imprimir na tela
+                printf("%d     || %s \n", i, livros[i].nome);
             }
-            else    //condicao para verificar o genero
+            else
             {
                 continue;
             }
+
+        break;
+
         break;  
     case 5: //caso o codigo seja 5
+        system("cls");
         printf("LIVROS DO GENERO AUTOAJUDA:\n\n");  //imprimir na tela
         printf("Codigo|| Nome do Livro\n");
-        for (int i = 0; i <= elementoArray; i++)    
-            if (strstr(livros[i].genero, s5) != NULL)
+    
+    for (int i = 0; i < elementoArray; i++)
+            if (strstr(livros[i].genero,s5) != NULL)
             {
                 printf("%d     || %s \n", i, livros[i].nome);
             }
@@ -332,12 +275,17 @@ int generos()   //funcao para listar os generos
             {
                 continue;
             }
+
+        break;
+
         break;
     case 6:
+        system("cls");
         printf("LIVROS DO GENERO TRUE CRIME:\n\n");
         printf("Codigo|| Nome do Livro\n");
-        for (int i = 0; i <= elementoArray; i++)
-            if (strstr(livros[i].genero, s6) != NULL)
+    
+    for (int i = 0; i < elementoArray; i++)
+            if (strstr(livros[i].genero,s6) != NULL)
             {
                 printf("%d     || %s \n", i, livros[i].nome);
             }
@@ -345,12 +293,17 @@ int generos()   //funcao para listar os generos
             {
                 continue;
             }
+
+        break;
+    
         break;
     case 7:
+        system("cls");
         printf("LIVROS DO GENERO FICCAO:\n\n");
         printf("Codigo|| Nome do Livro\n");
-        for (int i = 0; i <= elementoArray; i++)
-            if (strstr(livros[i].genero, s7) != NULL)
+    
+    for (int i = 0; i < elementoArray; i++)
+            if (strstr(livros[i].genero,s7) != NULL)
             {
                 printf("%d     || %s \n", i, livros[i].nome);
             }
@@ -358,12 +311,15 @@ int generos()   //funcao para listar os generos
             {
                 continue;
             }
+
         break;
     case 8:
+        system("cls");
         printf("LIVROS DO GENERO POESIA:\n\n");
         printf("Codigo|| Nome do Livro\n");
-        for (int i = 0; i <= elementoArray; i++)
-            if (strstr(livros[i].genero, s8) != NULL)
+    
+    for (int i = 0; i < elementoArray; i++)
+            if (strstr(livros[i].genero,s8) != NULL)
             {
                 printf("%d     || %s \n", i, livros[i].nome);
             }
@@ -371,12 +327,15 @@ int generos()   //funcao para listar os generos
             {
                 continue;
             }
+
         break;
     case 9:
+        system("cls");
         printf("LIVROS DO GENERO INFANTIL:\n\n");
         printf("Codigo|| Nome do Livro\n");
-        for (int i = 0; i <= elementoArray; i++)
-            if (strstr(livros[i].genero, s9) != NULL)
+    
+    for (int i = 0; i < elementoArray; i++)
+            if (strstr(livros[i].genero,s9) != NULL)
             {
                 printf("%d     || %s \n", i, livros[i].nome);
             }
@@ -384,6 +343,7 @@ int generos()   //funcao para listar os generos
             {
                 continue;
             }
+
         break;
     default:    //caso o codigo seja invalido
         printf("Insira um codigo valido!\n");   //imprimir na tela
@@ -407,42 +367,40 @@ int menuBiblioteca()    //funcao para o menu da biblioteca
     switch (tecla)  //condicao para verificar a tecla
     {
     case 1: //caso a tecla seja 1
-        system("cls");      //limpar a tela
+        system("cls");
+        leituraLivro("livros.bin");
+        leituraGenero("genero.bin");
         Biblioteca();   //chamar a funcao
         break;  //quebrar
     case 2:
-        system("cls");  //limpar a tela
-        leituraNome("livros.dat");      //ler o nome do livro
-        leituraGenero("genero.txt");    //ler o genero
-        generos();  //chamar a funcao
+        system("cls");
+        leituraLivro("livros.bin");
+        leituraGenero("genero.bin");
+        generos();
         break;
     case 3:
         system("cls");
-        leituraNome("livros.dat");
-        leituraGenero("genero.dat");
         livrosEmprestados();
         break;
     case 4:
         menu();
-    default:    //caso a tecla seja invalida
-        printf("Codigo invalido. Tente novamente!");        //imprimir na tela
+    default:
+        printf("Codigo invalido. Tente novamente!"); 
         menuBiblioteca();   //chamar a funcao
         break;  //quebrar
     }
 }
 
-int Biblioteca()    //funcao para a biblioteca
+int Biblioteca() 
 {
+    printf("TODOS OS LIVROS\n\n");
 
-    printf("TODOS OS LIVROS\n\n");  //imprimir na tela
-    printf("Codigo|| Nome do Livro\n"); 
+    for (int i = 0; i < elementoArray; i++) 
+            {
+                printf("%d     || %s \n", i, livros[i].nome);
+            }
 
-    for (int i = 0; i < 10; i++)
-    {
-        printf("%s\n", livros[i].nome);
-    }
-
-    
+    return 0;
 
 }
 
@@ -582,6 +540,7 @@ int devolucao()
             }
         }
     }
+
     int sentinela2 = 0;
     while (sentinela2 == 0)
     {
@@ -644,26 +603,23 @@ int menu()
     {
     case 1:
         system("cls");
-        leituraNome("livros.dat");
         menuBiblioteca();
         voltarMenu();
         break;
     case 2:
-        cadastrarLivro("livros.dat");
-        cadastrarGenero("genero.dat");
+        cadastrarLivro("livros.bin");
+        cadastrarGenero("genero.bin");
         voltarMenu();
         break;
     case 3:
         system("cls");
-        leituraCliente("cliente.dat");
-        leituraCpf("cpf.dat");
         listaClientes();
         char resposta;
         printf("\nDeseja entrar um novo cliente? (s/n): ");
         scanf(" %c", &resposta);
         if (resposta == 's' || resposta == 'S') {
-        cadastrarCliente("cliente.txt");
-        cadastrarCpf("cpf.txt");
+        cadastrarCliente("cliente.bin");
+        cadastrarCpf("cpf.bin");
         voltarMenu();
         } else {
         
@@ -671,21 +627,17 @@ int menu()
         }
         break;
     case 4:
-        cadastrarCliente("cliente.dat");
-        cadastrarCpf("cpf.dat");
-        cadastrartelefone("telefone.dat");
+        cadastrarCliente("cliente.bin");
+        cadastrarCpf("cpf.bin");
+        cadastrartelefone("telefone.bin");
         voltarMenu();
         break;
     case 5:
-        leituraNome("livros.dat");
-        leituraCliente("cliente.dat");
-        emprestimoLivro("livros.dat");
+        emprestimoLivro("livros.bin");
         voltarMenu();
         break;
     case 6:
-        leituraNome("livros.txt");
-        leituraCliente("cliente.txt");
-        devolucao("livros.txt");
+        devolucao("livros.bin");
         voltarMenu();
         break;
     case 7:
@@ -693,6 +645,10 @@ int menu()
         printf("SISTEMA ENCERRADO!");
         exit(0);
         break;
+    case 8:
+        system("cls");
+        leituraLivro("livros.bin");
+        voltarMenu();
     default:
         system("cls");
         printf("Opção inválida \n\n");
@@ -702,6 +658,7 @@ int menu()
         return 0;
     }
 }
+
 void inicio()
 {
     printf("\n\n   \t\t\t\t\tSEJA BEM-VINDO A BIBLIOTECA BPK\n\n");

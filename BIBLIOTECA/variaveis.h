@@ -8,19 +8,17 @@ FILE* arquivo;  // Variável para manipulação de arquivos
 #define arquivoLeitura2 arquivo = fopen(nomedoarquivo2, "rb");   // Abre o arquivo para leitura
 #define arquivoLeitura3 arquivo = fopen(nomedoarquivo3, "rb");   // Abre o arquivo para leitura
 #define arquivoEditar arquivo = fopen(nomedoarquivo, "ab");  // Abre o arquivo para edição
-#define lerInformacoes array[elementoArray], tamanho, arquivo   // Lê as informações do arquivo
 
-int elementoArray = 0;  // Elemento do array
+int elementoArray = 1;  // Elemento do array
 int tecla = 0;  // Variável para armazenar a tecla pressionada
 char array[tamanho][tamanho];   // Array para armazenar as informações
 
 struct informacoesLivros {  // Estrutura para armazenar as informações dos livros
-    char nome;  // Nome do livro
-    char genero [10];   // Gênero do livro
-    int emprestimo; // Quantidade de empréstimos
-
-
+    char nome[50];
+    char genero[3];
+    char emprestimo;
 };
+
 
 struct informacoesClientes {    // Estrutura para armazenar as informações dos clientes
     char nome2[50]; // Nome do cliente
