@@ -1,22 +1,24 @@
-#include <stdio.h>     //biblioteca para usar printf e scanf
-#include <stdlib.h>    //biblioteca para usar system
-#include <string.h>    //biblioteca para usar strings
-#include "variaveis.h" //biblioteca com as variaveis
-#include <windows.h>   //biblioteca para usar acentos
-#include <locale.h>    //biblioteca para usar acentos
+#include <stdio.h>
+#include <stdlib.h> 
+#include <string.h>
+#include "variaveis.h"
+#include <windows.h>   
+#include <locale.h>   
+#include <conio.h>
 
-void voltarMenu() // funcao para voltar ao menu22
+void voltarMenu()
 {
-    printf("Pressione enter para voltar ao menu.\n"); // imprimir na tela
-    getchar();                                        // ler o enter
-    system("cls");                                    // limpar a tela
-    menu();                                           // voltar ao menu
+    printf("Pressione enter para voltar ao menu.\n");
+    getchar();                                
+    system("cls");                                   
+    menu();                                           
     return;
 }
 
 void leituraLivro(char *nomedoarquivo)
 {
     char livros1[50];
+    char espaco[5] = "DW";
     int i = 0;
     arquivoLeitura;
     while (fread(&livros1, sizeof(livros1), 1, arquivo))
@@ -38,13 +40,10 @@ void leituraEmprestrimoLivro(char *nomedoarquivo)
     while (fread(&emprestimo, sizeof(emprestimo), 1, arquivo))
     {
         strcpy(livros[i].emprestimo, emprestimo);
-        printf("\nE.L %s", livros[i].emprestimo);
         i++;
     }
 
     arquivoFechar;
-
-    system("pause");
     return;
 }
 
@@ -56,12 +55,10 @@ void leituraEmprestrimoCliente(char *nomedoarquivo)
     while (fread(&emprestimo, sizeof(emprestimo), 1, arquivo))
     {
         strcpy(clientes[i].emprestimo2, emprestimo);
-        printf("\nE.C %s", clientes[i].emprestimo2);
         i++;
     }
 
     arquivoFechar;
-    system("pause");
     return;
 }
 
@@ -73,12 +70,10 @@ void leituraAutor(char *nomedoarquivo)
     while (fread(&autor1, sizeof(autor1), 1, arquivo))
     {
         strcpy(livros[i].nomeAutor, autor1);
-        printf("\nAutor %s", livros[i].nomeAutor);
         i++;
     }
     arquivoFechar;
 
-    system("pause");
     return;
 }
 
@@ -90,11 +85,9 @@ void leituraPAG(char *nomedoarquivo)
     while (fread(&numeroPag, sizeof(numeroPag), 1, arquivo))
     {
         strcpy(livros[i].numeroPag, numeroPag);
-        printf("\nPAG %s", livros[i].numeroPag);
         i++;
     }
     arquivoFechar;
-    system("pause");
     return;
 }
 
@@ -102,37 +95,63 @@ void leituraGenero(char *nomedoarquivo)
 {
     char genero[3];
     int i = 0;
+    int num;
     arquivoLeitura;
     while (fread(&genero, sizeof(genero), 1, arquivo))
     {
         strcpy(livros[i].genero, genero);
-        printf("\nGenero %s", livros[i].genero);
+        num = strtol(genero, NULL, 10);
+        switch (num)
+        {
+        case 1:
+            strcpy(livros[i].genero2, "Romance");
+            break;
+        case 2:
+            strcpy(livros[i].genero2, "Terror");
+            break;
+        case 3:
+            strcpy(livros[i].genero2, "Contos");
+            break;
+        case 4:
+            strcpy(livros[i].genero2, "Biografia");
+            break;
+        case 5:
+            strcpy(livros[i].genero2, "Autoajuda");
+            break;
+        case 6:
+            strcpy(livros[i].genero2, "True Crime");
+            break;
+        case 7:
+            strcpy(livros[i].genero2, "Ficção");
+            break;
+        case 8:
+            strcpy(livros[i].genero2, "Poesia");
+            break;
+        case 9:
+            strcpy(livros[i].genero2, "Infantil");
+            break;
+        default:
+            break;
+        }      
         i++;
     }
     arquivoFechar;
-
-    system("pause");
-
     return;
 }
 
 void leituraClientes(char *nomedoarquivo)
 {
-    char clientes1[50];
+    char clientes1[20];
     int i = 0;
     arquivoLeitura;
     while (fread(&clientes1, sizeof(clientes1), 1, arquivo))
     {
         strcpy(clientes[i].nome2, clientes1);
-        printf("\nCliente %s", clientes[i].nome2);
         i++;
     }
 
     elementoArrayCliente = i;
     arquivoFechar;
-
-    system("pause");
-
     return;
 }
 
@@ -145,13 +164,9 @@ void leituraCPF(char *nomedoarquivo)
     while (fread(&cpf, sizeof(cpf), 1, arquivo))
     {
         strcpy(clientes[i].cpf, cpf);
-        printf("\nCPF %s", clientes[i].cpf);
         i++;
     }
     arquivoFechar;
-    printf("\nE.C %s", clientes[i].emprestimo2);
-
-    system("pause");
 
     return;
 }
@@ -165,12 +180,9 @@ void leituraTelefone(char *nomedoarquivo)
     while (fread(&telefone, sizeof(telefone), 1, arquivo))
     {
         strcpy(clientes[i].telefone, telefone);
-        printf("\n Telefone %s", clientes[i].telefone);
         i++;
     }
     arquivoFechar;
-
-    system("pause");
     return;
 }
 
@@ -183,7 +195,6 @@ void leituraDataNascimento(char *nomedoarquivo)
     while (fread(&data, sizeof(data), 1, arquivo))
     {
         strcpy(clientes[i].dataDeNascimento, data);
-        printf("\n D.N %s", clientes[i].dataDeNascimento);
         i++;
     }
 
@@ -192,44 +203,44 @@ void leituraDataNascimento(char *nomedoarquivo)
     return;
 }
 
-void cadastrarLivro(char *nomedoarquivo) // funcao para cadastrar o livro]
+void cadastrarLivro(char *nomedoarquivo)
 
 {
-    char nomes[50];                     // definir um tamanho para o nome
-    printf("digite o nome do livro: "); // imprimir na tela
-    fgets(nomes, 50, stdin);            // ler o nome
-    fflush(stdin);                      // limpar o buffer
+    char nomes[50];                     
+    printf("digite o nome do livro: "); 
+    fgets(nomes, 50, stdin);           
+    fflush(stdin);                   
 
-    arquivoEditar; // abrir o arquivo
+    arquivoEditar; 
 
-    fwrite(&nomes, sizeof(nomes), 1, arquivo); // escrever no arquivo
+    fwrite(&nomes, sizeof(nomes), 1, arquivo); 
 
-    arquivoFechar; // fechar o arquivo
+    arquivoFechar; 
 
     return;
 }
 
-void cadastrarGenero(char *nomedoarquivo) // funcao para cadastrar o genero]
+void cadastrarGenero(char *nomedoarquivo) 
 {
     char genero[3];
     int num;
     do
     {
-        printf("Selecione o genero do livro\n"); // imprimir na tela
+        printf("Selecione o genero do livro\n"); 
         printf("[1] Romance     [2] Terror     [3] Contos\n");
         printf("[4] Biografia   [5] Autoajuda  [6] True Crime\n");
         printf("[7] Ficcao      [8] Poesia     [9] Infantil\n");
-        fgets(genero, 10, stdin); // ler o genero
+        fgets(genero, 10, stdin); 
         num = strtol(genero, NULL, 10);
     } while (num < 0 || num > 9);
 
-    fflush(stdin); // limpar o buffer
+    fflush(stdin); 
 
-    arquivoEditar; // abrir o arquivo
+    arquivoEditar;
 
-    fwrite(&genero, sizeof(genero), 1, arquivo); // escrever no arquivo
+    fwrite(&genero, sizeof(genero), 1, arquivo);
 
-    arquivoFechar; // fechar o arquivo
+    arquivoFechar;
 
     return;
 }
@@ -269,55 +280,55 @@ void cadastrarPAG(char *nomedoarquivo)
 void cadastrarEmprestimo(char *nomedoarquivo)
 {
 
-    arquivoEditar; // abrir o arquivo
+    arquivoEditar;
 
-    fwrite("0", sizeof("0"), 1, arquivo); // escrever no arquivo
+    fwrite("0", sizeof("0"), 1, arquivo); 
 
-    arquivoFechar; // fechar o arquivo
+    arquivoFechar;
 
     return;
 }
 
-void livrosEmprestados() // funcao para listar os livros emprestados
+void livrosEmprestados()
 {
-    printf("LIVROS EMPRESTADOS\n\n"); // imprimir na tela
+    printf("LIVROS EMPRESTADOS\n\n"); 
     printf("Codigo|| Nome do Livro\n");
-    for (int i = 0; i < (elementoArrayLivro); i++) // loop para percorrer o array
+    for (int i = 0; i < (elementoArrayLivro); i++) 
     {
-        if (livros[i].emprestimo == "1") // condicao para verificar se o livro esta emprestado
+        if (livros[i].emprestimo == "1")
         {
-            printf("%d     || %s\n", i, livros[i].nome); // imprimir na tela
+            printf("%d     || %s\n", i, livros[i].nome); 
         }
-        else // condicao para verificar se o livro nao esta emprestado
+        else 
         {
-            continue; // continuar
+            continue; 
         }
     }
     return;
 }
 
-void cadastrarCliente(char *nomedoarquivo) // funcao para cadastrar o cliente
+void cadastrarCliente(char *nomedoarquivo)
 {
 
-    char nome2[50]; // definir um tamano para o nome
-    fgets(nome2, 50, stdin);
-    printf("digite o nome do Cliente: \n"); // imprimir na tela
-    fgets(nome2, 50, stdin);                // ler o nome
-    fflush(stdin);                          // limpar o buffer
+    char nome2[20];
+    fgets(nome2, 20, stdin);
+    printf("digite o nome do Cliente: \n");
+    fgets(nome2, 20, stdin);  
+    fflush(stdin); 
 
-    arquivoEditar; // abrir o arquivo
+    arquivoEditar;
 
-    fwrite(&nome2, sizeof(nome2), 1, arquivo); //   escrever no arquivo
+    fwrite(&nome2, sizeof(nome2), 1, arquivo);
 
-    arquivoFechar; // fechar o arquivo
+    arquivoFechar; 
 
-    return; // retornar 0
+    return; 
 }
 
 void cadastrartelefone(char *nomedoarquivo) // funcao para cadastrar o telefone
 {
     char telefone[20];                          // definir um tamanho para o telefone
-    printf("Digite o telefone do Cliente: \n"); // imprimir na tela
+    printf("Digite o telefone do Cliente ((00) 90000-0000): \n"); // imprimir na tela
     fgets(telefone, 20, stdin);                 // ler o telefone
     fflush(stdin);                              // limpar o buffer
 
@@ -334,7 +345,7 @@ void cadastrarCPF(char *nomedoarquivo)
 {
 
     char cpf[20];
-    printf("digite o CPF: \n");
+    printf("digite o CPF(000.000.000-00): \n");
     fgets(cpf, 20, stdin);
     fflush(stdin);
 
@@ -350,7 +361,7 @@ void cadastrarCPF(char *nomedoarquivo)
 void cadastrarData(char *nomedoarquivo)
 {
     char data[15];
-    printf("digite a data de nascimento do cliente: \n");
+    printf("digite a data de nascimento do cliente (DD/MM/AAAA): \n");
     fgets(data, 15, stdin);
     fflush(stdin);
 
@@ -366,11 +377,11 @@ void cadastrarData(char *nomedoarquivo)
 void listaClientes() // funcao para listar os clientes
 {
     printf("Clientes:\n"); // imprimir na tela
-    printf("Codigo|| Nome do Cliente  //  CPF  //  Telefone  //  Data de Nascimento\n\n");
+    printf("Codigo|| Nome do Cliente\n\n");
 
     for (int i = 0; i < elementoArrayCliente; i++)
     {
-        printf("%d     || %s\n", i, clientes[i].nome2);
+        printf("%d     || %s               \nCPF || %s                   \nTELEFONE || %s                   \nDATA DE NASCIMENTO || %s              \n", i, clientes[i].nome2, clientes[i].cpf, clientes[i].telefone, clientes[i].dataDeNascimento);
     }
 
     return;
@@ -378,7 +389,7 @@ void listaClientes() // funcao para listar os clientes
 
 void generos()
 {
-    int codigo; // definir um codigo
+    int codigo; 
     char s1[2] = "1";
     char s2[2] = "2";
     char s3[2] = "3";
@@ -559,28 +570,28 @@ void generos()
     return;
 }
 
-void menuBiblioteca() // funcao para o menu da biblioteca
+void menuBiblioteca() 
 {
-    int selecao;                              // definir uma selecao
-    printf("Selecione a opcao desejada: \n"); // imprimir na tela
+    int selecao;                              
+    printf("Selecione a opcao desejada: \n"); 
     printf("[1] Todos os livros \n");
     printf("[2] Generos \n");
     printf("[3] Livros emprestados \n");
     printf("[4] Voltar para o Menu \n");
-    scanf("%i", &tecla); // ler a tecla
-    fflush(stdin);       // limpar o buffer
+    scanf("%i", &tecla); 
+    fflush(stdin);       
 
-    switch (tecla) // condicao para verificar a tecla
+    switch (tecla) 
     {
-    case 1: // caso a tecla seja 1
+    case 1: 
         system("cls");
         leituraLivro("livros.bin");
         leituraGenero("genero.bin");
         leituraAutor("autor.bin");
         leituraPAG("pag.bin");
         leituraEmprestrimoLivro("emprestimoLivro.bin");
-        Biblioteca(); // chamar a funcao
-        break;        // quebrar
+        Biblioteca(); 
+        break;        
     case 2:
         system("cls");
         leituraLivro("livros.bin");
@@ -607,102 +618,119 @@ void menuBiblioteca() // funcao para o menu da biblioteca
 }
 
 void Biblioteca()
-{
-    printf("TODOS OS LIVROS\n\n");
+{   
+    int selecao;
+    char espaco[5] = "DW";
+    printf("LIVROS:\n");
+    printf("Codigo || Nome do Livro  \n\n");
 
     for (int i = 0; i < elementoArrayLivro; i++)
     {
-        printf("%d || %s\n", i, livros[i].nome);
+        if(strstr(livros[i].nome,espaco) != NULL) {
+            continue;
+        }else{
+        printf("%d      || %s              \n", i, livros[i].nome);
+        }
     }
+
+    do{
+    printf("\nDeseja consultar um livro específico?\n");
+    printf("[1] SIM || [2] VOLTAR\n");
+    scanf("%d",&selecao);
+    if(selecao == 1) {
+        system("cls");
+        leituraLivro("livros.bin");
+        leituraGenero("genero.bin");
+        leituraAutor("autor.bin");
+        leituraPAG("pag.bin");
+        leituraEmprestrimoLivro("emprestimoLivro.bin");
+        leituraGenero("genero.bin");
+        consultarLivro();
+    }else if(selecao == 2) {
+        system("cls");
+        menuBiblioteca();
+    }else{
+        system("cls");
+        printf("OPÇÃO INVÁLIDA\n");
+    }
+    }while(selecao != 1 || selecao != 2);
 
     return;
 }
 
-void emprestimoLivro() // funcao para o emprestimo do livro
+void emprestimoLivro()
 {
-    int codigo; // definir um codigo
-
-    printf("EMPRESTIMO\n\n"); // imprimir na tela
-    int sentinela = 0;        // definir uma sentinela
-    while (sentinela == 0)    // condicao para verificar a sentinela
+    int codigo;
+    char s1[2] = "1";
+    printf("EMPRESTIMO\n\n");
+    int sentinela = 0;
+    while (sentinela == 0)
     {
 
-        printf("Digite o codigo do livro: \n");      // imprimir na tela
-        scanf("%d", &codigo);                        // ler o codigo
-        for (int i = 1; i < elementoArrayLivro; i++) // loop para percorrer o array
-        {
+        printf("Digite o codigo do livro: \n");
+        scanf("%d", &codigo);      
 
-            if (livros[i].emprestimo == "1") // condicao para verificar se o livro esta emprestado
+            if (strstr(livros[codigo].emprestimo, s1) != NULL) 
             {
-                printf("O livro %s ja esta emprestado.", livros[i].nome);     // imprimir na tela
-                int condicao = 0;                                             // definir uma condicao
-                printf("(1)Tentar novamente              (2)Voltar ao menu"); // imprimir na tela
-                scanf("%i", &condicao);                                       // ler a condicao
-                fflush(stdin);                                                // limpar o buffer
-                if (condicao == 1)                                            // condicao para verificar a condicao
+                printf("%s Já está emprestado.\n", livros[codigo].nome);
+                int condicao = 0;                                            
+                printf("[1] Tentar novamente || [2] Voltar ao menu\n");
+                scanf("%i", &condicao);                                       
+                fflush(stdin);                                               
+                if (condicao == 1)                                          
                 {
-                    break; // quebrar
+                    break; 
                 }
-                else // condicao para verificar a condicao
+                else
                 {
-                    menu(); // voltar ao menu
+                    menu();
                 }
             }
-            if (codigo < 0 || codigo >= elementoArrayLivro) // condicao para verificar o codigo
+            if (codigo < 0 || codigo >= elementoArrayLivro) 
             {
-                printf("Digite um codigo valido!\n"); // imprimir na tela
-                break;                                // quebrar
+                printf("Digite um codigo valido!\n"); 
+                break;                         
             }
-            if (codigo == i) // condicao para verificar o codigo
-            {
-                printf("\nLivro escolhido: \n");          // imprimir na tela
-                printf("%s", livros[i].nome);             // imprimir na tela
-                emprestar("emprestimoLivro.bin", codigo); // definir o emprestimo
-                sentinela = 1;                            // definir a sentinela
-                break;                                    // quebrar
-            }
-        }
+                printf("\nLivro escolhido: \n");
+                printf("%s", livros[codigo].nome);         
+                emprestar("emprestimoLivro.bin", codigo); 
+                sentinela = 1;                        
+                break;                            
+            
     }
-    int sentinela2 = 0; // definir uma sentinela
+    int sentinela2 = 0;
 
-    while (sentinela2 == 0) // condicao para verificar a sentinela
+    while (sentinela2 == 0)
     {
 
-        printf("Digite o codigo do Cliente: \n");      // imprimir na tela
-        scanf("%d", &codigo);                          // ler o codigo
-        for (int i = 0; i < elementoArrayCliente; i++) // loop para percorrer o array
-        {
-            if (clientes[codigo].emprestimo2 == "1") // condicao para verificar se o cliente esta com o livro
-            {
-                printf("O cliente ");                                           // imprimir na tela
-                printf("%s ja possui um emprestimo.", clientes[codigo].nome2);  // imprimir na tela
-                int condicao = 0;                                               // definir uma condicao
-                printf("(1)Tentar novamente              (2)Voltar ao menu\n"); // imprimir na tela
-                scanf("%i", &condicao);                                         // ler a condicao
-                fflush(stdin);                                                  // limpar o buffer
-                if (condicao == 1)                                              // condicao para verificar a condicao
+        printf("Digite o codigo do Cliente: \n");     
+        scanf("%d", &codigo);            
+            if (strstr(clientes[codigo].emprestimo2, s1) != NULL)
+            {                                   
+                printf("%s Já possui um empréstimo.", clientes[codigo].nome2); 
+                int condicao = 0;                                        
+                printf("[1] Tentar novamente || [2] Voltar ao menu\n"); 
+                scanf("%i", &condicao);                                      
+                fflush(stdin);                                                
+                if (condicao == 1)                                            
                 {
-                    break; // quebrar
+                    break;
                 }
-                else // condicao para verificar a condicao
+                else 
                 {
-                    menu(); // voltar ao menu
+                    menu();
                 }
             }
-            if (codigo < 0 || codigo >= elementoArrayCliente) // condicao para verificar o codigo
+            if (codigo < 0 || codigo >= elementoArrayCliente) 
             {
-                printf("Digite um codigo valido!\n"); // imprimir na tela
+                printf("Digite um codigo valido!\n"); 
                 break;
             }
-            if (codigo == i) // condicao para verificar o codigo
-            {
-                printf("\nCliente escolhido: \n\n");        // imprimir na tela
-                printf("%s", clientes[i].nome2);            // imprimir na tela
-                emprestar("emprestimoCliente.bin", codigo); // definir o emprestimo
-                sentinela2 = 1;                             // definir a sentinela
-                break;                                      // quebrar
-            }
-        }
+
+                printf("\nCliente escolhido: \n\n"); 
+                printf("%s", clientes[codigo].nome2);      
+                emprestar("emprestimoCliente.bin", codigo);
+                sentinela2 = 1;                                    
     }
     printf("Empréstimo realizado com sucesso!!\n"); // imprimir na tela
     menu();                                         // voltar ao menu
@@ -712,21 +740,19 @@ void emprestimoLivro() // funcao para o emprestimo do livro
 void devolucaoLivro()
 {
     int codigo;
+    char s1[2] =  "0";
     printf("\nDEVOLUÇÃO\n");
 
     int sentinela = 0;
     while (sentinela == 0)
     {
-        printf("Digite o código do livro.\n");
+        printf("Digite o código do livro:\n");
         scanf("%i", &codigo);
-        for (int i = 1; i < elementoArrayLivro; i++)
-        {
-            if (livros[i].emprestimo == "0")
+            if (strstr(livros[codigo].emprestimo, s1) == NULL)
             {
                 int condicao2 = 0;
-                printf("O livro ");
-                printf("%s não esta emprestado.\n", livros[i].nome);
-                printf("(1)Tentar novamente              (2)Voltar ao menu\n");
+                printf("%s Não está emprestado.\n", livros[codigo].nome);
+                printf("[1] Tentar novamente || [2] Voltar ao menu\n");
                 scanf("%i", &condicao2);
                 fflush(stdin);
                 if (condicao2 == 1)
@@ -744,16 +770,14 @@ void devolucaoLivro()
                 printf("Digite um código válido!\n");
                 break;
             }
-            if (codigo == i)
-            {
                 printf("\nLivro devolvido: ");
-                printf("%s", livros[i].nome);
+                printf("%s", livros[codigo].nome);
                 devolver("emprestimoLivro.bin", codigo);
                 sentinela = 1;
                 break;
-            }
+            
         }
-    }
+    
 
     int sentinela2 = 0;
     while (sentinela2 == 0)
@@ -761,13 +785,12 @@ void devolucaoLivro()
 
         printf("Digite o código do Cliente: \n");
         scanf("%d", &codigo);
-        for (int i = 0; i < elementoArrayCliente; i++)
-        {
-            if (clientes[i].emprestimo2 == "0")
+        
+            if (strstr(livros[codigo].emprestimo, s1) != NULL)
             {
                 int condicao = 0;
-                printf("O cliente %s não possui empréstimo.\n", clientes[i].nome2);
-                printf("[1]Tentar novamente              [2]Voltar ao menu\n");
+                printf("%s Não possui empréstimo.\n", clientes[codigo].nome2);
+                printf("[1] Tentar novamente || [2] Voltar ao menu\n");
                 scanf("%i", &condicao);
                 fflush(stdin);
                 if (condicao == 1)
@@ -784,15 +807,11 @@ void devolucaoLivro()
                 printf("Digite um código válido!\n");
                 break;
             }
-            if (codigo == i)
-            {
                 printf("\nCliente devolução: ");
-                printf("%s\n", clientes[i].nome2);
+                printf("%s\n", clientes[codigo].nome2);
                 devolver("emprestimoCliente.bin", codigo);
                 sentinela2 = 1;
-                break;
-            }
-        }
+
         printf("Devolução realizado com sucesso!!\n");
         menu();
         return;
@@ -801,24 +820,20 @@ void devolucaoLivro()
 
 void devolver(char *nomedoarquivo, int codigo)
 {
-
+    char s0[2] = "0";
     arquivoEditar1;
-
-    fseek(nomedoarquivo, codigo * sizeof(0), SEEK_SET);
-    fwrite(0, sizeof(0), 1, nomedoarquivo);
-
+    fseek(arquivo, codigo * sizeof(s0), SEEK_SET);
+    fwrite(s0, sizeof(s0), 1, arquivo);
     arquivoFechar;
-
     return;
 }
 
 void emprestar(char *nomedoarquivo, int codigo)
 {
+    char s1[2] = "1";
     arquivoEditar1;
-
-    fseek(nomedoarquivo, codigo * sizeof(1), SEEK_SET);
-    fwrite(1, sizeof(1), 1, nomedoarquivo);
-
+    fseek(arquivo, codigo * sizeof(s1), SEEK_SET);
+    fwrite(s1, sizeof(s1), 1, arquivo);
     arquivoFechar;
 
     return;
@@ -826,32 +841,67 @@ void emprestar(char *nomedoarquivo, int codigo)
 
 void alterarNome(char *nomedoarquivo, int codigo)
 {
-    char nome2[50];                               // definir um tamano para o nome
-    printf("digite o nome para a alteração: \n"); // imprimir na tela
-    fgets(nome2, 50, stdin);                      // ler o nome
-    fflush(stdin);                                // limpar o buffer
+    char nome2[20];  
+    int selecao;
+    fgets(nome2, 20, stdin);                             
+    printf("Digite o nome para a alteração: \n"); 
+    fgets(nome2, 20, stdin);               
+    fflush(stdin); 
+    do{ 
+    printf("NOME: %s\n", nome2);
+    printf("DESEJA CONFIRMAR?\n");
+    printf("[1] SIM [2] NÃO [3] VOLTAR\n");
+    scanf("%d", &selecao);
+    if(selecao == 1) {
+        break;
+    }else if(selecao == 2){
+        alterarNome("livros.bin", codigo);
+    }else if(selecao == 3) {
+        menuEdicaoLivro();
+    }else{
+        system("cls");
+        printf("OPÇÃO INVÁLIDA\n\n");
+    }
+    }while(selecao != 1 || selecao != 2 || selecao != 3);
 
-    arquivoEditar1; // abrir o arquivo
+    arquivoEditar1; 
+    fseek(arquivo, codigo * sizeof(nome2), SEEK_SET);
+    fwrite(&nome2, sizeof(nome2), 1, arquivo);
 
-    fseek(nomedoarquivo, codigo * sizeof(nome2), SEEK_SET);
-    fwrite(&nome2, sizeof(nome2), 1, nomedoarquivo);
-
-    arquivoFechar; // fechar o arquivo
+    arquivoFechar;
 
     return;
 }
 
 void alterarCPF(char *nomedoarquivo, int codigo)
 {
+    int selecao;
     char cpf[20];
-    printf("digite o CPF para a alteração: \n");
+    printf("digite o CPF para a alteração (000.000.000-00): \n");
     fgets(cpf, 20, stdin);
     fflush(stdin);
 
+    do{ 
+    printf("CPF: %s\n", cpf);
+    printf("DESEJA CONFIRMAR?\n");
+    printf("[1] SIM [2] NÃO [3] VOLTAR\n");
+    scanf("%d", &selecao);
+    if(selecao == 1) {
+        break;
+    }else if(selecao == 2){
+        alterarCPF("cpf.bin", codigo);
+    }else if(selecao == 3) {
+        menuEdicaoLivro();
+    }else{
+        system("cls");
+        printf("OPÇÃO INVÁLIDA\n\n");
+    }
+    }while(selecao != 1 || selecao != 2 || selecao != 3);
+
     arquivoEditar1;
 
-    fseek(nomedoarquivo, codigo * sizeof(cpf), SEEK_SET);
-    fwrite(&cpf, sizeof(cpf), 1, nomedoarquivo);
+    fseek(arquivo, codigo * sizeof(cpf), SEEK_SET);
+    fwrite(&cpf, sizeof(cpf), 1, arquivo);
 
     arquivoFechar;
 
@@ -860,15 +910,32 @@ void alterarCPF(char *nomedoarquivo, int codigo)
 
 void alterarTelefone(char *nomedoarquivo, int codigo)
 {
+    int selecao;
     char telefone[20];
-    printf("digite o telefone para a alteração: \n");
+    printf("Digite o telefone para a alteração ((00) 90000-0000): \n");
     fgets(telefone, 20, stdin);
     fflush(stdin);
+    do{ 
+    printf("TELEFONE: %s\n", telefone);
+    printf("DESEJA CONFIRMAR?\n");
+    printf("[1] SIM [2] NÃO [3] VOLTAR\n");
+    scanf("%d", &selecao);
+    if(selecao == 1) {
+        break;
+    }else if(selecao == 2){
+        alterarCPF("telefone.bin", codigo);
+    }else if(selecao == 3) {
+        menuEdicaoLivro();
+    }else{
+        system("cls");
+        printf("OPÇÃO INVÁLIDA\n\n");
+    }
+    }while(selecao != 1 || selecao != 2 || selecao != 3);
 
     arquivoEditar1;
 
-    fseek(nomedoarquivo, codigo * sizeof(telefone), SEEK_SET);
-    fwrite(&telefone, sizeof(telefone), 1, nomedoarquivo);
+    fseek(arquivo, codigo * sizeof(telefone), SEEK_SET);
+    fwrite(&telefone, sizeof(telefone), 1, arquivo);
 
     arquivoFechar;
 
@@ -878,21 +945,40 @@ void alterarTelefone(char *nomedoarquivo, int codigo)
 void alterarDataNascimento(char *nomedoarquivo, int codigo)
 {
     char data[15];
-    printf("digite a data para a alteração: \n");
+    int selecao;
+    printf("Digite a data para a alteração (DD/MM/AAAA): \n");
     fgets(data, 15, stdin);
     fflush(stdin);
 
+    do{ 
+    printf("DATA DE NASCIMENTO: %s\n", data);
+    printf("DESEJA CONFIRMAR?\n");
+    printf("[1] SIM [2] NÃO [3] VOLTAR\n");
+    scanf("%d", &selecao);
+    if(selecao == 1) {
+        break;
+    }else if(selecao == 2){
+        alterarCPF("dataNascimento.bin", codigo);
+    }else if(selecao == 3) {
+        menuEdicaoLivro();
+    }else{
+        system("cls");
+        printf("OPÇÃO INVÁLIDA\n\n");
+    }
+    }while(selecao != 1 || selecao != 2 || selecao != 3);
+    
+
     arquivoEditar1;
 
-    fseek(nomedoarquivo, codigo * sizeof(data), SEEK_SET);
-    fwrite(&data, sizeof(data), 1, nomedoarquivo);
+    fseek(arquivo, codigo * sizeof(data), SEEK_SET);
+    fwrite(&data, sizeof(data), 1, arquivo);
 
     arquivoFechar;
 
     return;
 }
 
-void deletarCliente(char *nomedoarquivo)
+void deletarCliente(char *nomedoarquivo, char *nomedoarquivo2, char *nomedoarquivo3, char *nomedoarquivo4, char *nomedoarquivo5)
 {
     int codigo;
     printf("Informe o codigo do cliente para exclui-lo: \n");
@@ -901,8 +987,36 @@ void deletarCliente(char *nomedoarquivo)
 
     arquivoEditar1;
 
-    fseek(nomedoarquivo, codigo * sizeof(" "), SEEK_SET);
-    fwrite(" ", sizeof(" "), 1, nomedoarquivo);
+    fseek(arquivo, codigo * sizeof(" "), SEEK_SET);
+    fwrite(" ", sizeof(" "), 1, arquivo);
+
+    arquivoFechar;
+
+    arquivoEditar2;
+
+    fseek(arquivo, codigo * sizeof(" "), SEEK_SET);
+    fwrite(" ", sizeof(" "), 1, arquivo);
+
+    arquivoFechar;
+
+    arquivoEditar3;
+
+    fseek(arquivo, codigo * sizeof(" "), SEEK_SET);
+    fwrite(" ", sizeof(" "), 1, arquivo);
+
+    arquivoFechar;
+
+    arquivoEditar4;
+
+    fseek(arquivo, codigo * sizeof(" "), SEEK_SET);
+    fwrite(" ", sizeof(" "), 1, arquivo);
+
+    arquivoFechar;
+
+    arquivoEditar5;
+
+    fseek(arquivo, codigo * sizeof(" "), SEEK_SET);
+    fwrite(" ", sizeof(" "), 1, arquivo);
 
     arquivoFechar;
 }
@@ -927,7 +1041,7 @@ void menuEdicaoCliente()
     switch (tecla)
     {
     case 1:
-        alterarNome("clientes.bin", codigo);
+        alterarNome("cliente.bin", codigo);
         break;
 
     case 2:
@@ -972,7 +1086,7 @@ void alterarGenero(char *nomedoarquivo, int codigo)
     fflush(stdin); // limpar o buffer
 
     arquivoEditar1; // abrir o arquivo
-    fseek(nomedoarquivo, codigo * sizeof(genero), SEEK_SET);
+    fseek(arquivo, codigo * sizeof(genero), SEEK_SET);
     fwrite(&genero, sizeof(genero), 1, arquivo); // escrever no arquivo
 
     arquivoFechar; // fechar o arquivo
@@ -983,38 +1097,88 @@ void alterarGenero(char *nomedoarquivo, int codigo)
 void alterarNumeroPag(char *nomedoarquivo, int codigo)
 {
     char numero[10];
-    printf("digite o numero para a alteração: \n");
+    int selecao;
+    printf("digite o número de páginas para a alteração: \n");
     fgets(numero, 10, stdin);
     fflush(stdin);
+    
+    do{ 
+    printf("NÚMERO PÁGINA: %s\n", numero);
+    printf("DESEJA CONFIRMAR?\n");
+    printf("[1] SIM [2] NÃO [3] VOLTAR\n");
+    scanf("%d", &selecao);
+    if(selecao == 1) {
+        break;
+    }else if(selecao == 2){
+        alterarCPF("pag.bin", codigo);
+    }else if(selecao == 3) {
+        menuEdicaoLivro();
+    }else{
+        system("cls");
+        printf("OPÇÃO INVÁLIDA\n\n");
+    }
+    }while(selecao != 1 || selecao != 2 || selecao != 3);
 
     arquivoEditar1;
 
-    fseek(nomedoarquivo, codigo * sizeof(numero), SEEK_SET);
-    fwrite(&numero, sizeof(numero), 1, nomedoarquivo);
+    fseek(arquivo, codigo * sizeof(numero), SEEK_SET);
+    fwrite(&numero, sizeof(numero), 1, arquivo);
 
     arquivoFechar;
 
     return;
 }
 
-void deletarLivro(char *nomedoarquivo)
+void deletarLivro(char *nomedoarquivo, char *nomedoarquivo2, char *nomedoarquivo3, char *nomedoarquivo4, char *nomedoarquivo5)
 {
     int codigo;
-    printf("Informe o codigo do livro para exclui-lo: \n");
+    char nome[50] = "DW";
+    char genero[3] = "DW";
+    char nomeAutor[50] = "DW";
+    char numeroPag[10] = "DW";
+    char emprestimo[3] = "DW";
+    printf("Informe o código do livro para exclui-lo: \n");
     scanf("%d", &codigo);
     fflush(stdin);
 
     arquivoEditar1;
 
-    fseek(nomedoarquivo, codigo * sizeof(" "), SEEK_SET);
-    fwrite(" ", sizeof(" "), 1, nomedoarquivo);
+    fseek(arquivo, codigo * sizeof(nome), SEEK_SET);
+    fwrite(nome, sizeof(nome), 1, arquivo);
+
+    arquivoFechar;
+
+    arquivoEditar2;
+
+    fseek(arquivo, codigo * sizeof(genero), SEEK_SET);
+    fwrite(genero, sizeof(genero), 1, arquivo);
+
+    arquivoFechar;
+
+    arquivoEditar3;
+
+    fseek(arquivo, codigo * sizeof(nomeAutor), SEEK_SET);
+    fwrite(nomeAutor, sizeof(nomeAutor), 1, arquivo);
+
+    arquivoFechar;
+
+    arquivoEditar4;
+
+    fseek(arquivo, codigo * sizeof(numeroPag), SEEK_SET);
+    fwrite(numeroPag, sizeof(numeroPag), 1, arquivo);
+
+    arquivoFechar;
+
+    arquivoEditar5;
+
+    fseek(arquivo, codigo * sizeof(emprestimo), SEEK_SET);
+    fwrite(emprestimo, sizeof(emprestimo), 1, arquivo);
 
     arquivoFechar;
 }
 
 void menuEdicaoLivro()
 {
-
     int tecla;
     system("cls");
     printf("Selecione a opção desejada: \n");
@@ -1036,29 +1200,31 @@ void menuEdicaoLivro()
     case 1:
 
         alterarNome("livros.bin", codigo);
+        menuEdicaoLivro();
         break;
 
     case 2:
         alterarGenero("genero.bin", codigo);
+        menuEdicaoLivro();
         break;
 
     case 3:
         alterarNome("autor.bin", codigo);
+        menuEdicaoLivro();
         break;
 
     case 4:
         alterarNumeroPag("pag.bin", codigo);
+        menuEdicaoLivro();
         break;
 
     case 5:
-
         menuEditar();
         break;
 
     default:
-
         printf("\nInforme um codigo válido.");
-        menuEdicaoCliente();
+        menuEdicaoLivro();
         break;
     }
 }
@@ -1072,7 +1238,6 @@ void menuEditar()
     printf("Selecione a opção desejada: \n");
     printf("[1] Editar informações do cliente\n");
     printf("[2] Apagar cliente\n");
-
     printf("[3] Editar informações do livro \n");
     printf("[4] Apagar livro\n");
     printf("[5] Sair \n");
@@ -1087,7 +1252,8 @@ void menuEditar()
         break;
 
     case 2:
-        deletarCliente("clientes.bin");
+        deletarCliente("clientes.bin","telefone.bin","dataNascimento.bin","cpf.bin","emprestimoCliente.bin");
+        menuEditar();
         break;
 
     case 3:
@@ -1095,7 +1261,8 @@ void menuEditar()
         break;
 
     case 4:
-        deletarLivro("livros.bin");
+        deletarLivro("livros.bin","genero.bin","autor.bin","pag.bin","emprestimoLivro");
+        menuEditar();
         break;
 
     case 5:
@@ -1112,26 +1279,28 @@ void menuEditar()
 void consultarLivro()
 {
     int codigo;
+    char s1[2] =  "1";
     printf("\bInforme o codigo do livro: ");
     scanf("%i", &codigo);
     fflush(stdin);
 
-    printf("Nome: %s", livros[codigo].nome);
-    printf("Autor: %s", livros[codigo].nomeAutor);
-    printf("Genêro: %s", livros[codigo].genero);
-    printf("Numero de Páginas: %s", livros[codigo].numeroPag);
+    printf("Nome: %s\n", livros[codigo].nome);
+    printf("Autor: %s\n", livros[codigo].nomeAutor);
+    printf("Genêro: %s\n", livros[codigo].genero);
+    printf("Numero de Páginas: %s\n", livros[codigo].numeroPag);
 
-    if (livros[codigo].emprestimo == "0")
+    if (strstr(livros[codigo].emprestimo, s1) == NULL)
     {
-        printf("Situação de empréstimo: Não possui");
+        printf("Situação de empréstimo: Não possui\n\n");
     }
     else
     {
-        printf("Situação de empréstimo: Possui");
+        printf("Situação de empréstimo: Possui\n\n");
     }
 
     int tecla;
     system("pause");
+    system("cls");
     printf("Selecione a opção desejada: \n");
     printf("[1] Consultar outro livro \n");
     printf("[2] Editar cadastro \n");
@@ -1163,26 +1332,28 @@ void consultarLivro()
 void consultarCliente()
 {
     int codigo;
+    char s1[2] = "1";
     printf("\bInforme o codigo do cliente: ");
     scanf("%i", &codigo);
     fflush(stdin);
 
-    printf("Nome: %s", clientes[codigo].nome2);
-    printf("Telefone: %s", clientes[codigo].telefone);
-    printf("Data de Nascimento: %s", clientes[codigo].dataDeNascimento);
-    printf("CPF: %s", clientes[codigo].cpf);
+    printf("Nome: %s\n", clientes[codigo].nome2);
+    printf("Telefone: %s\n", clientes[codigo].telefone);
+    printf("Data de Nascimento: %s\n", clientes[codigo].dataDeNascimento);
+    printf("CPF: %s\n", clientes[codigo].cpf);
 
-    if (clientes[codigo].emprestimo2 == "0")
+    if (strstr(clientes[codigo].emprestimo2, s1) == NULL)
     {
-        printf("Situação de empréstimo: Não possui");
+        printf("Situação de empréstimo: Não possui\n\n");
     }
     else
     {
-        printf("Situação de empréstimo: Possui");
+        printf("Situação de empréstimo: Possui\n\n");
     }
 
     int tecla;
     system("pause");
+    system("cls");
     printf("Selecione a opção desejada: \n");
     printf("[1] Consultar outro cliente \n");
     printf("[2] Editar cadastro \n");
@@ -1244,17 +1415,15 @@ void menu()
         voltarMenu();
         break;
     case 3:
-        system("cls");
         leituraClientes("cliente.bin");
         leituraCPF("cpf.bin");
         leituraDataNascimento("dataNascimento.bin");
         leituraEmprestrimoCliente("emprestimoCliente.bin");
         leituraTelefone("telefone.bin");
-        listaClientes();
+        listaClientes("cliente.bin");
         voltarMenu();
         break;
     case 4:
-        system("cls");
         cadastrarCliente("cliente.bin");
         cadastrarCPF("cpf.bin");
         cadastrartelefone("telefone.bin");
@@ -1263,21 +1432,22 @@ void menu()
         voltarMenu();
         break;
     case 5:
-        system("cls");
-        leituraEmprestrimoCliente("emprestimoCliente");
-        leituraEmprestrimoLivro("emprestimoCliente.bin");
+        leituraLivro("livros.bin");
+        leituraClientes("cliente.bin");
+        leituraEmprestrimoCliente("emprestimoCliente.bin");
+        leituraEmprestrimoLivro("emprestimoLivro.bin");
         emprestimoLivro();
         voltarMenu();
         break;
     case 6:
-        system("cls");
+        leituraLivro("livros.bin");
+        leituraClientes("cliente.bin");
         leituraEmprestrimoCliente("emprestimoCliente");
         leituraEmprestrimoLivro("emprestimoCliente.bin");
         devolucaoLivro();
         voltarMenu();
         break;
     case 7:
-        system("cls");
         menuEditar();
         break;
 
@@ -1293,7 +1463,6 @@ void menu()
         break;
 
     case 9:
-
         leituraClientes("cliente.bin");
         leituraCPF("cpf.bin");
         leituraDataNascimento("dataNascimento.bin");
@@ -1303,12 +1472,10 @@ void menu()
         system("cls");
         break;
     case 10:
-        system("cls");
         printf("SISTEMA ENCERRADO!");
         exit(0);
         break;
     default:
-        system("cls");
         printf("Opção inválida \n\n");
         menu();
         break;
@@ -1319,8 +1486,8 @@ void menu()
 void inicio()
 {
     printf("\n\n   \t\t\t\t\tSEJA BEM-VINDO A BIBLIOTECA BPK\n\n");
-    printf("\t\t\t\t\tPRESSIONE ENTER PARA CONTINUAR");
-    getchar();
+    printf("\t\t\t\t   PRESSIONE QUALQUER TECLA PARA CONTINUAR");
+    getch();
     fflush(stdin);
     system("cls");
     menu();
