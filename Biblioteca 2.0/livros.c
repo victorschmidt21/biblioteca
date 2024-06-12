@@ -1026,36 +1026,36 @@ void deletarCliente(char *nomedoarquivo, char *nomedoarquivo2, char *nomedoarqui
 
     arquivoEditar1;
 
-    fseek(arquivo, codigo * sizeof(""), SEEK_SET);
-    fwrite("", sizeof(""), 1, arquivo);
+    fseek(arquivo, codigo * sizeof("WD"), SEEK_SET);
+    fwrite("WD", sizeof("WD"), 1, arquivo);
 
     arquivoFechar;
 
     arquivoEditar2;
 
-    fseek(arquivo, codigo * sizeof(""), SEEK_SET);
-    fwrite("", sizeof(""), 1, arquivo);
+    fseek(arquivo, codigo * sizeof("WD"), SEEK_SET);
+    fwrite("WD", sizeof("WD"), 1, arquivo);
 
     arquivoFechar;
 
     arquivoEditar3;
 
-    fseek(arquivo, codigo * sizeof(""), SEEK_SET);
-    fwrite("", sizeof(""), 1, arquivo);
+    fseek(arquivo, codigo * sizeof("WD"), SEEK_SET);
+    fwrite("WD", sizeof("WD"), 1, arquivo);
 
     arquivoFechar;
 
     arquivoEditar4;
 
-    fseek(arquivo, codigo * sizeof(""), SEEK_SET);
-    fwrite("", sizeof(""), 1, arquivo);
+    fseek(arquivo, codigo * sizeof("WD"), SEEK_SET);
+    fwrite("WD", sizeof("WD"), 1, arquivo);
 
     arquivoFechar;
 
     arquivoEditar5;
 
-    fseek(arquivo, codigo * sizeof(""), SEEK_SET);
-    fwrite("", sizeof(""), 1, arquivo);
+    fseek(arquivo, codigo * sizeof("WD"), SEEK_SET);
+    fwrite("WD", sizeof("WD"), 1, arquivo);
 
     arquivoFechar;
 }
@@ -1185,42 +1185,43 @@ void alterarNumeroPag(char *nomedoarquivo, int codigo)
 void deletarLivro(char *nomedoarquivo, char *nomedoarquivo2, char *nomedoarquivo3, char *nomedoarquivo4, char *nomedoarquivo5)
 {
     int codigo;
+    char del = {"WD"};
     printf("Informe o código do livro para exclui-lo: \n");
     scanf("%d", &codigo);
     fflush(stdin);
 
     arquivoEditar1;
 
-    fseek(arquivo, codigo * sizeof(""), SEEK_SET);
-    fwrite("", sizeof(""), 1, arquivo);
+    fseek(arquivo, codigo * sizeof(del), SEEK_SET);
+    fwrite(&del, sizeof(del), 1, arquivo);
 
     arquivoFechar;
 
     arquivoEditar2;
 
-    fseek(arquivo, codigo * sizeof(""), SEEK_SET);
-    fwrite("", sizeof(""), 1, arquivo);
+    fseek(arquivo, codigo * sizeof(del), SEEK_SET);
+    fwrite(&del, sizeof(del), 1, arquivo);
 
     arquivoFechar;
 
     arquivoEditar3;
 
-    fseek(arquivo, codigo * sizeof(""), SEEK_SET);
-    fwrite("", sizeof(""), 1, arquivo);
+    fseek(arquivo, codigo * sizeof(del), SEEK_SET);
+    fwrite(&del, sizeof(del), 1, arquivo);
 
     arquivoFechar;
 
     arquivoEditar4;
 
-    fseek(arquivo, codigo * sizeof(""), SEEK_SET);
-    fwrite("", sizeof(""), 1, arquivo);
+    fseek(arquivo, codigo * sizeof(del), SEEK_SET);
+    fwrite(&del, sizeof(del), 1, arquivo);
 
     arquivoFechar;
 
     arquivoEditar5;
 
-    fseek(arquivo, codigo * sizeof(""), SEEK_SET);
-    fwrite("", sizeof(""), 1, arquivo);
+    fseek(arquivo, codigo * sizeof(del), SEEK_SET);
+    fwrite(&del, sizeof(del), 1, arquivo);
 
     arquivoFechar;
 }
