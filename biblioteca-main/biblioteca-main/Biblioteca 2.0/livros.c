@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdlib.h>
 #include <string.h>
 #include "variaveis.h"
+#include <windows.h>
+#include <locale.h>
 #include <windows.h>
 #include <locale.h>
 #include <conio.h>
@@ -226,6 +229,7 @@ void cadastrarGenero(char *nomedoarquivo)
     do
     {
         printf("Selecione o genero do livro\n");
+        printf("Selecione o genero do livro\n");
         printf("[1] Romance     [2] Terror     [3] Contos\n");
         printf("[4] Biografia   [5] Autoajuda  [6] True Crime\n");
         printf("[7] Ficcao      [8] Poesia     [9] Infantil\n");
@@ -246,16 +250,16 @@ void cadastrarGenero(char *nomedoarquivo)
 
 void cadastrarAutor(char *nomedoarquivo)
 {
-    char nome[50];                               // definir um tamanho para o nome
-    printf("digite o nome do autor do livro: "); // imprimir na tela
-    fgets(nome, 50, stdin);                      // ler o nome
-    fflush(stdin);                               // limpar o buffer
+    char nome[50];                               
+    printf("digite o nome do autor do livro: "); 
+    fgets(nome, 50, stdin);                      
+    fflush(stdin);                              
 
-    arquivoEditar; // abrir o arquivo
+    arquivoEditar; 
 
-    fwrite(&nome, sizeof(nome), 1, arquivo); // escrever no arquivo
+    fwrite(&nome, sizeof(nome), 1, arquivo);
 
-    arquivoFechar; // fechar o arquivo
+    arquivoFechar; 
 
     return;
 }
@@ -310,7 +314,6 @@ void cadastrarCliente(char *nomedoarquivo)
 {
 
     char nome2[20];
-    fgets(nome2, 20, stdin);
     printf("digite o nome do Cliente: \n");
     fgets(nome2, 20, stdin);
     fflush(stdin);
@@ -324,9 +327,9 @@ void cadastrarCliente(char *nomedoarquivo)
     return;
 }
 
-void cadastrartelefone(char *nomedoarquivo) // funcao para cadastrar o telefone
+void cadastrartelefone(char *nomedoarquivo) 
 {
-    char telefone[20];                                            // definir um tamanho para o telefone
+    char telefone[20];                                            
     printf("Digite o telefone do Cliente ((00) 90000-0000): \n"); // imprimir na tela
     fgets(telefone, 20, stdin);                                   // ler o telefone
     fflush(stdin);                                                // limpar o buffer
@@ -562,6 +565,7 @@ void generos()
 
 void menuBiblioteca()
 {
+
     int selecao;
     printf("Selecione a opcao desejada: \n");
     printf("[1] Todos os livros \n");
@@ -654,7 +658,7 @@ void Biblioteca()
 }
 
 void emprestimoLivro()
-{
+{   
     int codigo;
     int codigo2;
     char s1[3] = "1";
@@ -665,7 +669,6 @@ void emprestimoLivro()
 
         printf("Digite o codigo do livro: \n");
         scanf("%d", &codigo);
-
         if (codigo < 0 || codigo >= elementoArrayLivro || strstr(livros[codigo].nome,espaco) != NULL)
         {
             system("cls");
@@ -883,7 +886,33 @@ void alterarNome(char *nomedoarquivo, int codigo)
 {
     char nome2[50];
     int selecao;
+    printf("Digite o nome para a alteração: \n");
     fgets(nome2, 50, stdin);
+    fflush(stdin);
+    do
+    {
+        printf("NOME: %s\n", nome2);
+        printf("DESEJA CONFIRMAR?\n");
+        printf("[1] SIM [2] NÃO [3] VOLTAR\n");
+        scanf("%d", &selecao);
+        if (selecao == 1)
+        {
+            break;
+        }
+        else if (selecao == 2)
+        {
+            alterarNome("livros.bin", codigo);
+        }
+        else if (selecao == 3)
+        {
+            menuEdicaoLivro();
+        }
+        else
+        {
+            system("cls");
+            printf("OPÇÃO INVÁLIDA\n\n");
+        }
+    } while (selecao != 1 || selecao != 2 || selecao != 3);
     printf("Digite o nome para a alteração: \n");
     fgets(nome2, 50, stdin);
     fflush(stdin);
@@ -926,11 +955,34 @@ void alterarCPF(char *nomedoarquivo, int codigo)
 {
     int selecao;
     char cpf[20];
-    fgets(cpf, 20, stdin);
     printf("digite o CPF para a alteração (000.000.000-00): \n");
     fgets(cpf, 20, stdin);
     fflush(stdin);
 
+    do
+    {
+        printf("CPF: %s\n", cpf);
+        printf("DESEJA CONFIRMAR?\n");
+        printf("[1] SIM [2] NÃO [3] VOLTAR\n");
+        scanf("%d", &selecao);
+        if (selecao == 1)
+        {
+            break;
+        }
+        else if (selecao == 2)
+        {
+            alterarCPF("cpf.bin", codigo);
+        }
+        else if (selecao == 3)
+        {
+            menuEdicaoLivro();
+        }
+        else
+        {
+            system("cls");
+            printf("OPÇÃO INVÁLIDA\n\n");
+        }
+    } while (selecao != 1 || selecao != 2 || selecao != 3);
     do
     {
         printf("CPF: %s\n", cpf);
@@ -964,7 +1016,6 @@ void alterarCPF(char *nomedoarquivo, int codigo)
     arquivoFechar;
 
     menuEditar();
-
     return;
 }
 
@@ -972,10 +1023,33 @@ void alterarTelefone(char *nomedoarquivo, int codigo)
 {
     int selecao;
     char telefone[20];
-    fgets(telefone, 20, stdin);
     printf("Digite o telefone para a alteração ((00) 90000-0000): \n");
     fgets(telefone, 20, stdin);
     fflush(stdin);
+    do
+    {
+        printf("TELEFONE: %s\n", telefone);
+        printf("DESEJA CONFIRMAR?\n");
+        printf("[1] SIM [2] NÃO [3] VOLTAR\n");
+        scanf("%d", &selecao);
+        if (selecao == 1)
+        {
+            break;
+        }
+        else if (selecao == 2)
+        {
+            alterarCPF("telefone.bin", codigo);
+        }
+        else if (selecao == 3)
+        {
+            menuEdicaoLivro();
+        }
+        else
+        {
+            system("cls");
+            printf("OPÇÃO INVÁLIDA\n\n");
+        }
+    } while (selecao != 1 || selecao != 2 || selecao != 3);
     do
     {
         printf("TELEFONE: %s\n", telefone);
@@ -1009,7 +1083,6 @@ void alterarTelefone(char *nomedoarquivo, int codigo)
     arquivoFechar;
 
     menuEditar();
-
     return;
 }
 
@@ -1017,11 +1090,34 @@ void alterarDataNascimento(char *nomedoarquivo, int codigo)
 {
     char data[15];
     int selecao;
-    fgets(data, 15, stdin);
     printf("Digite a data para a alteração (DD/MM/AAAA): \n");
     fgets(data, 15, stdin);
     fflush(stdin);
 
+    do
+    {
+        printf("DATA DE NASCIMENTO: %s\n", data);
+        printf("DESEJA CONFIRMAR?\n");
+        printf("[1] SIM [2] NÃO [3] VOLTAR\n");
+        scanf("%d", &selecao);
+        if (selecao == 1)
+        {
+            break;
+        }
+        else if (selecao == 2)
+        {
+            alterarCPF("dataNascimento.bin", codigo);
+        }
+        else if (selecao == 3)
+        {
+            menuEdicaoLivro();
+        }
+        else
+        {
+            system("cls");
+            printf("OPÇÃO INVÁLIDA\n\n");
+        }
+    } while (selecao != 1 || selecao != 2 || selecao != 3);
     do
     {
         printf("DATA DE NASCIMENTO: %s\n", data);
@@ -1055,7 +1151,6 @@ void alterarDataNascimento(char *nomedoarquivo, int codigo)
     arquivoFechar;
 
     menuEditar();
-
     return;
 }
 
@@ -1159,14 +1254,13 @@ void alterarGenero(char *nomedoarquivo, int codigo)
 {
     char genero[3];
     int num;
-    fgets(genero, 3, stdin);
     do
     {
         printf("Selecione o novo genero do livro\n"); // imprimir na tela
         printf("[1] Romance     [2] Terror     [3] Contos\n");
         printf("[4] Biografia   [5] Autoajuda  [6] True Crime\n");
         printf("[7] Ficcao      [8] Poesia     [9] Infantil\n");
-        fgets(genero, 10, stdin); // ler o genero
+        fgets(genero, 3, stdin); // ler o genero
         num = strtol(genero, NULL, 10);
     } while (num < 0 || num > 9);
 
@@ -1180,6 +1274,8 @@ void alterarGenero(char *nomedoarquivo, int codigo)
 
     menuEditar();
 
+    menuEditar();
+
     return;
 }
 
@@ -1187,7 +1283,6 @@ void alterarNumeroPag(char *nomedoarquivo, int codigo)
 {
     char numero[10];
     int selecao;
-    fgets(numero, 10, stdin);
     printf("digite o número de páginas para a alteração: \n");
     fgets(numero, 10, stdin);
     fflush(stdin);
@@ -1225,7 +1320,6 @@ void alterarNumeroPag(char *nomedoarquivo, int codigo)
     arquivoFechar;
 
     menuEditar();
-
     return;
 }
 
@@ -1601,7 +1695,6 @@ void inicio()
 }
 
 int main()
-
 {
     UINT CPAGE_UTF8 = 65001;
     SetConsoleOutputCP(CPAGE_UTF8);
