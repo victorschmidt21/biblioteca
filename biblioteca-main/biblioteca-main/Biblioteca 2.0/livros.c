@@ -630,6 +630,8 @@ void menuBiblioteca() // função para o menu da biblioteca
         break;
     case 3:
         system("cls");
+        leituraLivro("livros.bin");
+        leituraEmprestrimoLivro("emprestimoLivro.bin");
         livrosEmprestados();
         break;
     case 4:
